@@ -21,14 +21,17 @@ public class GoogleBookDataAccessService implements BookDao {
     @Value("${api.key")
     private String apiKey;
 
+    // All of the books that have matched the user's searches.
     private static Set<Book> BOOK_HISTORY = new TreeSet<Book>(new BookComparator());
+
+    // The current user's search.
     private static List<Book> CURRENT_SEARCH = new ArrayList<Book>();
 
     @Override
     public ListResponse selectBookHistory(int pageNumber) {
         List<Book> allBooks = BOOK_HISTORY.stream().collect(Collectors.toList());
         int start = pageNumber * 20;
-        int end = (start + 20) < allBooks.size() ? start + 20 : allBooks.size();
+        int end = Math.min(start + 20, allBooks.size());
         return new ListResponse(BOOK_HISTORY.size(), allBooks.subList((pageNumber * 20), end));
     }
 
@@ -40,13 +43,14 @@ public class GoogleBookDataAccessService implements BookDao {
         searchResults.addAll(doBookSearch(searchTerm, 25));
 
         CURRENT_SEARCH = searchResults;
-        return new ListResponse(searchResults.size(), searchResults.subList(0, pageSize));
+        return new ListResponse(searchResults.size(),
+                searchResults.subList(0, Math.min(pageSize, searchResults.size())));
     }
 
     @Override
     public ListResponse selectBookSearchResultsPage(int pageSize, int pageNumber) {
         int start = pageNumber * 20;
-        int end = (start + 20) < CURRENT_SEARCH.size() ? start + 20 : CURRENT_SEARCH.size();
+        int end = Math.min(start + 20, CURRENT_SEARCH.size());
         return new ListResponse(CURRENT_SEARCH.size(), CURRENT_SEARCH.subList((pageNumber * 20), end));
     }
 
@@ -60,11 +64,14 @@ public class GoogleBookDataAccessService implements BookDao {
         RestTemplate restTemplate = new RestTemplate();
         BookSearchResult result = restTemplate.getForObject(apiUrl, BookSearchResult.class);
 
-        return result.getBookEntries().stream()
+        return result.getBookEntries() != null ? result.getBookEntries().stream()
                 .map(entry -> new Book(entry.getId(), entry.getBookInfo().getTitle(), entry.getBookInfo().getAuthors()))
-                .peek(book -> insertBook(book)).collect(Collectors.toList());
+                .peek(book -> insertBook(book)).collect(Collectors.toList()) : new ArrayList<Book>();
     }
 
+    /**
+     * A custom comparator to tell if titla and authors are equal.
+     */
     static class BookComparator implements Comparator<Book> {
         @Override
         public int compare(Book b1, Book b2) {
