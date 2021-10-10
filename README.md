@@ -22,7 +22,7 @@ matching that search string. Any matches beyond the initial 50 do not need to be
 ### CORS
 - This was the most annoying hurdle.
 ### GitLens
-- My React files won't show up in source control.
+- My React files won't show up in source control. I couldn't figure this out, so I attached the repo as a .7z.
 
 ## What would I change?
 ### Security
@@ -33,13 +33,12 @@ matching that search string. Any matches beyond the initial 50 do not need to be
 - Sorting
 
 ## Running Locally
-1. Clone the repository
-2. Install the packages with ```yarn install```
-3. Start React ```
+1. ~~Clone the repository~~ Download the attached .7z file (bookFinder.7z)
+2. Start React ```
     cd /src/main/ui
-    npm install
-    npm start```
-4. Start Java by running BookFinderApplication.java
+    yarn install
+    yarn start```
+3. Start Java by running BookFinderApplication.java
 
 ## Added Dependencies
 - Styled Components (https://styled-components.com/)
