@@ -31,9 +31,10 @@ matching that search string. Any matches beyond the initial 50 do not need to be
 - Testing
 ### UX/UI
 - Sorting
+- Clear search
 
 ## Running Locally
-1. ~~Clone the repository~~ Download the attached .7z file (bookFinder.7z)
+1. ~~Clone the repository~~ Download the attached .7z file (bookFinder.7z), extract, and open in IDE.
 2. Start React ```
     cd /src/main/ui
     yarn install
