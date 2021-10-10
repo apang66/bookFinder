@@ -24,7 +24,7 @@ matching that search string. Any matches beyond the initial 50 do not need to be
 ### GitLens
 - My React files won't show up in source control. I couldn't figure this out, so I attached the repo as a .7z.
 
-## What would I change?
+## What would I change for production?
 ### Security
 - Better structured API responses with errors
 - Authentication
