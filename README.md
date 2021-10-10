@@ -16,7 +16,7 @@ matching that search string. Any matches beyond the initial 50 do not need to be
 
 ## Challenges
 ### Google Books API
-- The specification called for 50 total results, but the Google Bolume:list API returns a maximum of 40.
+- The specification called for 50 total results, but the Google Volume:list API returns a maximum of 40.
 - Search results would vary slightly with the exact same searches.
 - Most of the pertinent information was nested a few layers deep in the response.
 ### CORS
