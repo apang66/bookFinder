@@ -15,6 +15,10 @@ matching that search string. Any matches beyond the initial 50 do not need to be
 5. Adjust for UX
 
 ## Challenges
+### Google Books API
+- The specification called for 50 total results, but the Google Bolume:list API returns a maximum of 40.
+
+## What would I change?
 
 ## Running Locally
 1. Clone the repository
