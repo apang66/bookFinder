@@ -1,12 +1,7 @@
 package com.homework.bookFinder.dao;
 
-import java.util.List;
-import java.util.Set;
-
-import com.homework.bookFinder.model.Book;
-
 public interface BookDao {
-    Set<Book> selectAllBooks();
+    ListResponse selectAllBooks(int pageNumber);
 
-    List<Book> selectBookSearchResults(String searchTerm, int pageSize, int pageNumber);
+    ListResponse selectBookSearchResults(String searchTerm, int pageSize, int pageNumber);
 }

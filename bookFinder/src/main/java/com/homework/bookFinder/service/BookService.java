@@ -1,10 +1,7 @@
 package com.homework.bookFinder.service;
 
-import java.util.List;
-import java.util.Set;
-
 import com.homework.bookFinder.dao.BookDao;
-import com.homework.bookFinder.model.Book;
+import com.homework.bookFinder.dao.ListResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,11 +17,11 @@ public class BookService {
         this.bookDao = bookDao;
     }
 
-    public Set<Book> getAllBooks() {
-        return bookDao.selectAllBooks();
+    public ListResponse getAllBooks(int pageNumber) {
+        return bookDao.selectAllBooks(pageNumber);
     }
 
-    public List<Book> getBookSearchResults(String searchTerm, int pageSize, int pageNumber) {
+    public ListResponse getBookSearchResults(String searchTerm, int pageSize, int pageNumber) {
         return bookDao.selectBookSearchResults(searchTerm, pageSize, pageNumber);
     }
 }

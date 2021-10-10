@@ -22,20 +22,23 @@ public class GoogleBookDataAccessService implements BookDao {
     private static Set<Book> BOOK_HISTORY = new TreeSet<Book>(new BookComparator());
 
     @Override
-    public Set<Book> selectAllBooks() {
-        return BOOK_HISTORY;
+    public ListResponse selectAllBooks(int pageNumber) {
+        List<Book> allBooks = BOOK_HISTORY.stream().collect(Collectors.toList());
+        int start = pageNumber * 20;
+        int end = (start + 20) < allBooks.size() ? start + 20 : allBooks.size();
+        return new ListResponse(BOOK_HISTORY.size(), allBooks.subList((pageNumber * 20), end));
     }
 
     @Override
-    public List<Book> selectBookSearchResults(String searchTerm, int pageSize, int pageNumber) {
-        String apiUrl = "https://www.googleapis.com/books/v1/volumes?maxResults=" + pageSize + "&startIndex="
-                + (pageNumber - 1) + "&q=" + searchTerm;
+    public ListResponse selectBookSearchResults(String searchTerm, int pageSize, int pageNumber) {
+        String apiUrl = "https://www.googleapis.com/books/v1/volumes?orderBy=relevance&maxResults=" + pageSize
+                + "&startIndex=" + (pageNumber * 20) + "&q=" + searchTerm;
         RestTemplate restTemplate = new RestTemplate();
         BookSearchResult result = restTemplate.getForObject(apiUrl, BookSearchResult.class);
-
-        return result.getBookEntries().stream()
+        System.out.println(apiUrl);
+        return new ListResponse(result.getTotal(), result.getBookEntries().stream()
                 .map(entry -> new Book(entry.getId(), entry.getBookInfo().getTitle(), entry.getBookInfo().getAuthors()))
-                .peek(book -> insertBook(book)).collect(Collectors.toList());
+                .peek(book -> insertBook(book)).collect(Collectors.toList()));
     }
 
     private void insertBook(Book book) {
@@ -49,7 +52,13 @@ public class GoogleBookDataAccessService implements BookDao {
             String title2 = b2.getTitle().trim();
             Set<String> authors1 = b1.getAuthors();
             Set<String> authors2 = b2.getAuthors();
-            if (title1.equals(title2) && authors1.containsAll(authors2) && authors2.containsAll(authors1))
+
+            boolean authorsEqual = false;
+            if ((authors1 != null && authors2 != null && authors1.containsAll(authors2)
+                    && authors2.containsAll(authors1)) || (authors1 == null && authors2 == null))
+                authorsEqual = true;
+
+            if (title1.equals(title2) && authorsEqual)
                 return 0;
             else
                 return 1;
