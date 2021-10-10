@@ -1,7 +1,7 @@
 package com.homework.bookFinder.service;
 
 import com.homework.bookFinder.dao.BookDao;
-import com.homework.bookFinder.dao.ListResponse;
+import com.homework.bookFinder.model.ListResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.homework.bookFinder.model.Book;
+import com.homework.bookFinder.model.ListResponse;
 
 import org.springframework.stereotype.Repository;
 

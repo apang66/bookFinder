@@ -1,9 +1,8 @@
-package com.homework.bookFinder.dao;
+package com.homework.bookFinder.model;
 
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.homework.bookFinder.model.Book;
 
 public class ListResponse {
     int total;

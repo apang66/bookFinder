@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import com.homework.bookFinder.model.Book;
 import com.homework.bookFinder.model.BookSearchResult;
+import com.homework.bookFinder.model.ListResponse;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;

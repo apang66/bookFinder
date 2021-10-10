@@ -1,6 +1,6 @@
 package com.homework.bookFinder.api;
 
-import com.homework.bookFinder.dao.ListResponse;
+import com.homework.bookFinder.model.ListResponse;
 import com.homework.bookFinder.service.BookService;
 
 import org.springframework.beans.factory.annotation.Autowired;
