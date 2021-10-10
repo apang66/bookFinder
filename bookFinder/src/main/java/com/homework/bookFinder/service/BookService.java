@@ -17,11 +17,24 @@ public class BookService {
         this.bookDao = bookDao;
     }
 
-    public ListResponse getAllBooks(int pageNumber) {
-        return bookDao.selectAllBooks(pageNumber);
+    /**
+     * Get all the books that have matched the user's searches.
+     */
+    public ListResponse getBookHistory(int pageNumber) {
+        return bookDao.selectBookHistory(pageNumber);
     }
 
-    public ListResponse getBookSearchResults(String searchTerm, int pageSize, int pageNumber) {
-        return bookDao.selectBookSearchResults(searchTerm, pageSize, pageNumber);
+    /**
+     * Get the results of a new search.
+     */
+    public ListResponse getBookSearchResults(String searchTerm, int pageSize) {
+        return bookDao.selectBookSearchResults(searchTerm, pageSize);
+    }
+
+    /**
+     * Get a page of the current search results.
+     */
+    public ListResponse getBookSearchResultsPage(int pageSize, int pageNumber) {
+        return bookDao.selectBookSearchResultsPage(pageSize, pageNumber);
     }
 }

@@ -1,7 +1,9 @@
 package com.homework.bookFinder.dao;
 
 public interface BookDao {
-    ListResponse selectAllBooks(int pageNumber);
+    ListResponse selectBookHistory(int pageNumber);
 
-    ListResponse selectBookSearchResults(String searchTerm, int pageSize, int pageNumber);
+    ListResponse selectBookSearchResults(String searchTerm, int pageSize);
+
+    ListResponse selectBookSearchResultsPage(int pageSize, int pageNumber);
 }

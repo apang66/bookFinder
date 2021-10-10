@@ -16,12 +16,12 @@ public class FakeBookDataAccessService implements BookDao {
     private static Set<Book> DB = new HashSet<Book>();
 
     @Override
-    public ListResponse selectAllBooks(int pageNumber) {
+    public ListResponse selectBookHistory(int pageNumber) {
         return new ListResponse(0, DB.stream().collect(Collectors.toList()));
     }
 
     @Override
-    public ListResponse selectBookSearchResults(String searchTerm, int pageSize, int pageNumber) {
+    public ListResponse selectBookSearchResults(String searchTerm, int pageSize) {
         return new ListResponse(0, new ArrayList<>());
     }
 
@@ -33,5 +33,10 @@ public class FakeBookDataAccessService implements BookDao {
             else
                 return 1;
         }
+    }
+
+    @Override
+    public ListResponse selectBookSearchResultsPage(int pageSize, int pageNumber) {
+        return new ListResponse(0, DB.stream().collect(Collectors.toList()));
     }
 }

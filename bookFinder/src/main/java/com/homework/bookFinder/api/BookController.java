@@ -23,13 +23,19 @@ public class BookController {
     }
 
     @GetMapping
-    public ListResponse getAllBooks(@RequestParam("pageNumber") int pageNumber) {
-        return bookService.getAllBooks(pageNumber);
+    public ListResponse getBookHistory(@RequestParam("pageNumber") int pageNumber) {
+        return bookService.getBookHistory(pageNumber);
     }
 
     @GetMapping(value = "/search/")
     public ListResponse getBookSearchResults(@RequestParam("term") String searchTerm,
-            @RequestParam("pageSize") int pageSize, @RequestParam("pageNumber") int pageNumber) {
-        return bookService.getBookSearchResults(searchTerm, pageSize, pageNumber);
+            @RequestParam("pageSize") int pageSize) {
+        return bookService.getBookSearchResults(searchTerm, pageSize);
+    }
+
+    @GetMapping(value = "/page/")
+    public ListResponse getBookSearchResultsPage(@RequestParam("pageSize") int pageSize,
+            @RequestParam("pageNumber") int pageNumber) {
+        return bookService.getBookSearchResultsPage(pageSize, pageNumber);
     }
 }
